@@ -67,7 +67,7 @@ def compute_beta_alpha(returns: pd.DataFrame, benchmark_returns: pd.Series,
 
         beta = cov / var
 
-        asset_mean = aligned['asset'].eman()
+        asset_mean = aligned['asset'].mean()
         bench_mean = aligned['benchmark'].mean()
 
         alpha_daily = (asset_mean - daily_rf) - beta * (bench_mean - daily_rf)
@@ -96,3 +96,9 @@ if __name__ == '__main__':
     print('\n === CORELATION ===')
     corr = compute_correlation_matrix(returns)
     print(corr)
+
+    print('\n === BETA & ALPHA vs S&P 500 ===')
+    benchmark_returns = fetch_benchmark_returns(start = '2022-01-01', end = '2026-08-22')
+    beta_alpha = compute_beta_alpha(returns, benchmark_returns)
+    print(beta_alpha)
+
